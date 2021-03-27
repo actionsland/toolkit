@@ -73,11 +73,8 @@ function stat(path: string): TE.TaskEither<Error, Deno.FileInfo> {
 
 function exists(path: string): TE.TaskEither<Error, boolean> {
   return pipe(
-    pipe(path, stat),
-    TE.map((_) => true),
-    TE.orElse((err) =>
-      err.name === "NotFound" ? TE.right(false) : TE.left(err)
-    ),
+    () => fs.exists(path),
+    TE.fromFailableTask(toError),
   );
 }
 
