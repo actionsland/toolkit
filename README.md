@@ -1,6 +1,6 @@
 # GitHub Actions Toolkit for Deno
 
-> A set o modules to make creating actions with Deno easier.
+> A set of modules to make creating actions with Deno easier.
 
 ## Modules
 
