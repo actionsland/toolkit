@@ -5,7 +5,7 @@ export * as os from "https://deno.land/std@0.91.0/node/os.ts";
 export {
   assert,
   assertEquals,
-  assertThrowsAsync
+  assertThrowsAsync,
 } from "https://deno.land/std@0.91.0/testing/asserts.ts";
 
 /* hkts */
