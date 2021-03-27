@@ -1,16 +1,15 @@
-# GitHub Actions Deno Toolkit
+# GitHub Actions Toolkit for Deno
 
 > A set o modules to make creating actions with Deno easier.
 
 ## Modules
 
-`toolkit/exec`
+[`actions.land/toolkit/io`](/io)
 
 *Work in progress...*
 
-Provides functions to exec cli tools and process output. Read more [here](/exec).
+Core functions for CLI scenarios.
 
 ```typescript
-import "https://deno.land/actionsland/toolkit/exec/mod.ts"
+import "https://actions.land/toolkit/io/mod.ts"
 ```
-
