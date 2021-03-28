@@ -61,12 +61,12 @@ Deno.test("copies directory into existing destination with recursive flag", asyn
   await fs.ensureDir(targetDir);
   await Deno.writeTextFile(sourceFile, "foo");
 
-  await cp(sourceDir, targetDir, { recursive: true });
+  await cp(sourceDir, targetDir);
 
   assertEquals(await Deno.readTextFile(targetFile), "foo");
 });
 
-Deno.test("copies directory into non-existing destination with recursive", async () => {
+Deno.test("copies directory into non-existing destination", async () => {
   const root = await Deno.makeTempDir({
     prefix: "cp_to_non_existing_with_recursive_flag",
   });
@@ -78,7 +78,7 @@ Deno.test("copies directory into non-existing destination with recursive", async
   await fs.ensureDir(sourceDir);
   await Deno.writeTextFile(sourceFile, "foo");
 
-  await cp(sourceDir, targetDir, { recursive: true });
+  await cp(sourceDir, targetDir);
 
   assertEquals(await Deno.readTextFile(targetFile), "foo");
 });
@@ -119,7 +119,7 @@ Deno.test("copies symlinks correctly", async () => {
   await Deno.writeTextFile(sourceFile, "foo");
   await createSymlinkDir(sourceNestedDir, sourceSymlinkDir);
 
-  await cp(sourceDir, targetDir, { recursive: true });
+  await cp(sourceDir, targetDir);
 
   assertEquals(await Deno.readTextFile(targetFile), "foo");
   assertEquals(await Deno.readTextFile(targetSymlink), "foo");
