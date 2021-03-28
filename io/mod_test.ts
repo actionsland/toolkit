@@ -85,7 +85,7 @@ Deno.test("copies directory into non-existing destination", async () => {
 
 Deno.test("copies directory without recursive", async () => {
   // this test differs from original implementation; original
-  // requires a `recursive` option to be specified to copy a 
+  // requires a `recursive` option to be specified to copy a
   // directory to other but we don't require it as it's the default
   // behavior of `fs.copy` (from Deno std fs module)
 
@@ -98,7 +98,7 @@ Deno.test("copies directory without recursive", async () => {
   await fs.ensureDir(sourceDir);
   await Deno.writeTextFile(sourceFile, "foo");
 
-  await cp(sourceDir, targetDir)
+  await cp(sourceDir, targetDir);
 
   assertEquals(await Deno.readTextFile(targetFile), "foo");
 });
