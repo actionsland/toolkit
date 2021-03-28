@@ -50,8 +50,8 @@ Deno.test("try copying to existing file without force (overwrite)", async () => 
   await assertThrowsAsync(() => cp(sourceFile, targetFile));
 });
 
-Deno.test("copies directory into existing destination with recursive flag", async () => {
-  const root = await Deno.makeTempDir({ prefix: "cp_with_recursive_flag" });
+Deno.test("copies directory into existing destination", async () => {
+  const root = await Deno.makeTempDir({ prefix: "cp_existing_dr" });
   const sourceDir = path.join(root, "cp_source_dir");
   const sourceFile = path.join(sourceDir, "cp_file");
   const targetDir = path.join(root, "cp_target_dir");
@@ -68,7 +68,7 @@ Deno.test("copies directory into existing destination with recursive flag", asyn
 
 Deno.test("copies directory into non-existing destination", async () => {
   const root = await Deno.makeTempDir({
-    prefix: "cp_to_non_existing_with_recursive_flag",
+    prefix: "cp_to_non_existing",
   });
   const sourceDir = path.join(root, "cp_source_dir");
   const sourceFile = path.join(sourceDir, "cp_file");
@@ -83,13 +83,13 @@ Deno.test("copies directory into non-existing destination", async () => {
   assertEquals(await Deno.readTextFile(targetFile), "foo");
 });
 
-Deno.test("copies directory without recursive", async () => {
+Deno.test("copies directory", async () => {
   // this test differs from original implementation; original
   // requires a `recursive` option to be specified to copy a
   // directory to other but we don't require it as it's the default
   // behavior of `fs.copy` (from Deno std fs module)
 
-  const root = await Deno.makeTempDir({ prefix: "cp_without_recursive_flag" });
+  const root = await Deno.makeTempDir({ prefix: "cp_dir" });
   const sourceDir = path.join(root, "cp_source_dir");
   const sourceFile = path.join(sourceDir, "cp_file");
   const targetDir = path.join(root, "cp_target_dir");
