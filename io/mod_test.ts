@@ -1,5 +1,5 @@
 import { assertEquals, assertThrowsAsync, fs, os, path } from "./deps.ts";
-import { cp, mkdir } from "./mod.ts";
+import { cp, cpTE, mkdir } from "./mod.ts";
 
 Deno.test("copies file with no flags", async () => {
   const root = await Deno.makeTempDir({ prefix: "cp_with_no_flags" });
@@ -83,7 +83,12 @@ Deno.test("copies directory into non-existing destination with recursive", async
   assertEquals(await Deno.readTextFile(targetFile), "foo");
 });
 
-Deno.test("tries to copy directory without recursive", async () => {
+Deno.test("copies directory without recursive", async () => {
+  // this test differs from original implementation; original
+  // requires a `recursive` option to be specified to copy a 
+  // directory to other but we don't require it as it's the default
+  // behavior of `fs.copy` (from Deno std fs module)
+
   const root = await Deno.makeTempDir({ prefix: "cp_without_recursive_flag" });
   const sourceDir = path.join(root, "cp_source_dir");
   const sourceFile = path.join(sourceDir, "cp_file");
@@ -93,8 +98,9 @@ Deno.test("tries to copy directory without recursive", async () => {
   await fs.ensureDir(sourceDir);
   await Deno.writeTextFile(sourceFile, "foo");
 
-  await assertThrowsAsync(() => cp(sourceFile, targetFile));
-  // TODO: assert file doesn't exist
+  await cp(sourceDir, targetDir)
+
+  assertEquals(await Deno.readTextFile(targetFile), "foo");
 });
 
 Deno.test("copies symlinks correctly", async () => {

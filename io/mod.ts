@@ -1,7 +1,6 @@
 import { fs, path, pipe, TE } from "./deps.ts";
 
 export type CopyOptions = {
-  recursive?: boolean;
   force?: boolean;
 };
 
